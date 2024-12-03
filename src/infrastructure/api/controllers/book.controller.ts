@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Path,
   Post,
   Route,
   SuccessResponse,
@@ -13,6 +14,7 @@ import {
   PostBookInputDto,
   PostBookOutPutDto,
 } from './dto';
+import { createBookCodec, getBookCodec } from './book.codec';
 
 @Route('books')
 export class BookController extends Controller {
@@ -28,7 +30,13 @@ export class BookController extends Controller {
 
   @Get('{:id}')
   @SuccessResponse(200)
-  async getById(): Promise<GetBookOutPutDto> {
+  async getById(@Path() id: string): Promise<GetBookOutPutDto> {
+    const bookId = getBookCodec.decodeBookId(id);
+
+    if (!bookId.success) {
+      throw 'Invalid book id format';
+    }
+
     return {
       id: 'mock-id',
       author: 'mock author',
@@ -43,6 +51,12 @@ export class BookController extends Controller {
   async create(
     @Body() requestBody: PostBookInputDto,
   ): Promise<PostBookOutPutDto> {
+    const decodingResult = createBookCodec.decode(requestBody);
+
+    if (!decodingResult.success) {
+      throw decodingResult.error.toString();
+    }
+
     return {
       id: 'mock-id',
       author: 'mock author',
@@ -54,7 +68,11 @@ export class BookController extends Controller {
 
   @Delete('{:id}')
   @SuccessResponse(204)
-  async delete(): Promise<void> {
-    return;
+  async delete(@Path() id: string): Promise<void> {
+    const bookId = getBookCodec.decodeBookId(id);
+
+    if (!bookId.success) {
+      throw 'Invalid book id format';
+    }
   }
 }
