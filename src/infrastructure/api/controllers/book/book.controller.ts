@@ -7,6 +7,7 @@ import {
   Post,
   Route,
   SuccessResponse,
+  Tags,
 } from 'tsoa';
 import {
   GetBookOutPutDto,
@@ -17,17 +18,25 @@ import {
 import { createBookCodec, getBookCodec } from './book.codec';
 
 @Route('books')
+@Tags('Books')
 export class BookController extends Controller {
   constructor() {
     super();
   }
 
+  /**
+   * @summary Get all books
+   */
   @Get()
   @SuccessResponse(200)
   async list(): Promise<GetBooksOutPutDto> {
     return [];
   }
 
+  /**
+   * @summary Get a book by id
+   * @param id The book's identifier
+   */
   @Get('{:id}')
   @SuccessResponse(200)
   async getById(@Path() id: string): Promise<GetBookOutPutDto> {
@@ -46,6 +55,9 @@ export class BookController extends Controller {
     };
   }
 
+  /**
+   * @summary Create book
+   */
   @Post()
   @SuccessResponse(201)
   async create(
@@ -66,6 +78,10 @@ export class BookController extends Controller {
     };
   }
 
+  /**
+   * @summary Delete book
+   * @param id The book's identifier
+   */
   @Delete('{:id}')
   @SuccessResponse(204)
   async delete(@Path() id: string): Promise<void> {

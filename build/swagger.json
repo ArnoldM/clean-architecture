@@ -1,0 +1,219 @@
+{
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"ReturnType_typeofGetBooksOutPutDto.parse_": {
+				"items": {
+					"properties": {
+						"totalPages": {
+							"type": "number",
+							"format": "double"
+						},
+						"author": {
+							"type": "string"
+						},
+						"summary": {
+							"type": "string"
+						},
+						"title": {
+							"type": "string"
+						},
+						"id": {
+							"type": "string"
+						}
+					},
+					"type": "object"
+				},
+				"type": "array",
+				"description": "Obtain the return type of a function type"
+			},
+			"GetBooksOutPutDto": {
+				"$ref": "#/components/schemas/ReturnType_typeofGetBooksOutPutDto.parse_"
+			},
+			"ReturnType_typeofGetBookOutPutDto.parse_": {
+				"properties": {
+					"totalPages": {
+						"type": "number",
+						"format": "double"
+					},
+					"author": {
+						"type": "string"
+					},
+					"summary": {
+						"type": "string"
+					},
+					"title": {
+						"type": "string"
+					},
+					"id": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"description": "Obtain the return type of a function type"
+			},
+			"GetBookOutPutDto": {
+				"$ref": "#/components/schemas/ReturnType_typeofGetBookOutPutDto.parse_"
+			},
+			"PostBookOutPutDto": {
+				"$ref": "#/components/schemas/ReturnType_typeofGetBookOutPutDto.parse_"
+			},
+			"ReturnType_typeofPostBookInputDto.parse_": {
+				"properties": {
+					"totalPages": {
+						"type": "number",
+						"format": "double"
+					},
+					"author": {
+						"type": "string"
+					},
+					"summary": {
+						"type": "string"
+					},
+					"title": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"description": "Obtain the return type of a function type"
+			},
+			"PostBookInputDto": {
+				"$ref": "#/components/schemas/ReturnType_typeofPostBookInputDto.parse_"
+			}
+		},
+		"securitySchemes": {}
+	},
+	"info": {
+		"title": "boilerplate-cleanarchi",
+		"version": "1.0.0",
+		"description": "## Quick start",
+		"license": {
+			"name": "ISC"
+		},
+		"contact": {}
+	},
+	"openapi": "3.0.0",
+	"paths": {
+		"/books": {
+			"get": {
+				"operationId": "List",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/GetBooksOutPutDto"
+								}
+							}
+						}
+					}
+				},
+				"summary": "Get all books",
+				"tags": [
+					"Books"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"post": {
+				"operationId": "Create",
+				"responses": {
+					"201": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PostBookOutPutDto"
+								}
+							}
+						}
+					}
+				},
+				"summary": "Create book",
+				"tags": [
+					"Books"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/PostBookInputDto"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/books/{{id}}": {
+			"get": {
+				"operationId": "GetById",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/GetBookOutPutDto"
+								}
+							}
+						}
+					}
+				},
+				"summary": "Get a book by id",
+				"tags": [
+					"Books"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"description": "The book's identifier",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"delete": {
+				"operationId": "Delete",
+				"responses": {
+					"204": {
+						"description": ""
+					}
+				},
+				"summary": "Delete book",
+				"tags": [
+					"Books"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"description": "The book's identifier",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "http://localhost:8000",
+			"description": "Localhost"
+		}
+	]
+}
